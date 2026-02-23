@@ -1,0 +1,16 @@
+ADF vs. SSID
+ADF
+Cloud based data integration service
+Can partition data while reading and writing to partition store and read data, even while iextracting or loading
+Can handle big and med data volume
+Has batching and streaming velocity-- meaning very powerful-- Can selet how many cores to use for data transfer
+Dev tools are in browser
+Can handle structured and unstructured data
+Cloud, hybrid, and amanaged platform
+ELT load pattern
+GUI interface
+TO create a data flow:
+Dev Center
+Resource Group
+Project
+Pipeline
