@@ -1,0 +1,94 @@
+Data source to sink
+Azure black storage and azure sql
+Link both services to pipline
+1. Create New data factory
+Choose 
+-subscription
+-resource group
+-instance details (name)
+-region
+-configure git now
+--public endpoint
+Review and create
+
+
+Go to Resources>> Launch ADF stidio
+Authoor page
+
+Resources for linked services
+Azure sql Database Server
+-server name
+-location
+-use sql authentication
+-server admin login
+-server admin password
+-backup storage redundancy = Locally redundant backup storage
+
+Networking connectivity
+-public endpoint
+-Firewall rules
+--Allow Azure services and resources to access this server = yes
+--Add current cliend IP address = yes
+
+Connection policy = default
+
+
+Go to storage accounts> Create a storage account
+-subscription 
+-resource group
+-storage account name
+-region = default
+-performance = default
+-redundancy = default
+-advanced = default
+-rest of option = default
+
+Resource>blob service
+-Add new container (private)
+-upload csv file
+
+Create empty table in sql databade
+SQL>query editior
+-log in
+-run create table query, verigfy with preview
+
+Connections>linked serves
+-new
+-blob storage
+--name
+--storage account
+--subscription
+--test connection
+--create
+
+Author tab>dataset>azure blob storage> data type
+-name
+-filepath
+-create
+
+Linked services> new> azure sql db
+-name
+-server name
+-database anme
+-auth type
+-create
+
+New dataset>azure sql db
+-name
+linked service
+-table name
+
+Pipeline>copy data
+-name
+-source
+-sink (sqltable)
+-can custom map
+-validate
+-debug
+
+Run select star to verify table is populated
+
+Data factory studio> publish pipeline
+Add trigger-- schedule trigger
+
+Delete all resourcves I no longer need
