@@ -1,5 +1,5 @@
 Data source to sink
-Azure black storage and azure sql
+Azure block storage and azure sql
 Link both services to pipline
 1. Create New data factory
 Choose 
@@ -10,14 +10,14 @@ Choose
 -configure git now
 --public endpoint
 Review and create
+Wait on the launch page till you see deplayment is complete. Then click on Got to Resources
 
-
-Go to Resources>> Launch ADF stidio
-Authoor page
+Go to Resources>> click on the data factory name> launch studio
+Manage icon (briefcase on left side)
 
 Resources for linked services
-Azure sql Database Server
--server name
+Azure sql Database/ Server
+-server name (create new)
 -location
 -use sql authentication
 -server admin login
@@ -43,16 +43,26 @@ Go to storage accounts> Create a storage account
 -advanced = default
 -rest of option = default
 
-Resource>blob service
+Once deployment is complete, click on Go to Resource>blob service
 -Add new container (private)
 -upload csv file
 
 Create empty table in sql databade
-SQL>query editior
+search SQL databases> click on database> query editior
 -log in
--run create table query, verigfy with preview
+-run create table query, verify with preview
 
-Connections>linked serves
+Create table etldemi (
+id VARCHAR(100),
+first_name VARCHAR(100),
+last_name VARCHAR(100),
+email VARCHAR(100),
+gender VARCHAR(100),
+ip_address VARCHAR(100)
+)
+
+Back to data factory and inside the factory created
+Manage (briefcase icon on left) >linked services
 -new
 -blob storage
 --name
@@ -61,8 +71,9 @@ Connections>linked serves
 --test connection
 --create
 
-Author tab>dataset>azure blob storage> data type
+Author tab> add a new dataset> azure blob storage> data type (csv if that's the data type being worked with)
 -name
+-linked service (previously created)
 -filepath
 -create
 
@@ -71,6 +82,8 @@ Linked services> new> azure sql db
 -server name
 -database anme
 -auth type
+-username
+-password
 -create
 
 New dataset>azure sql db
