@@ -16,6 +16,7 @@ Go to Resources>> click on the data factory name> launch studio
 Manage icon (briefcase on left side)
 
 Resources for linked services
+Search for azure sql> sql databases
 Azure sql Database/ Server
 -server name (create new)
 -location
