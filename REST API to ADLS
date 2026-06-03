@@ -25,3 +25,28 @@ Container: raw-data
         (MM)/
           (dd)/
             search_results_yyyyMMdd_HHmmss.json
+
+search api.io --> get your api key
+ex: jaREUEtRKaDhK9g9fVSsFErt
+
+Select your news feed and copy the base url
+https://www.searchapi.io/api/v1/search?engine=google_news
+
+populate query
+&q=latest_news&gl=bz
+
+populate auth
+&api_key=jaREUEtRKaDhK9g9fVSsFErt
+
+so the full url is: 
+https://www.searchapi.io/api/v1/search?engine=google_news&q=latest_news&gl=bz&api_key=jaREUEtRKaDhK9g9fVSsFErt
+
+Use for linked service:
+https://www.searchapi.io/api/v1
+
+Use for Data set:
+/search?engine=google_news&q=latest_news&gl=bz&api_key=jaREUEtRKaDhK9g9fVSsFErt
+
+Go to Target
+Target: data lake (adls)
+Go to ADF
