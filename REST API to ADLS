@@ -26,6 +26,7 @@ Container: raw-data
           (dd)/
             search_results_yyyyMMdd_HHmmss.json
 
+#Best practice: store API key in Azure Key Vault
 search api.io --> get your api key
 ex: jaREUEtRKaDhK9g9fVSsFErt
 
@@ -42,11 +43,78 @@ so the full url is:
 https://www.searchapi.io/api/v1/search?engine=google_news&q=latest_news&gl=bz&api_key=jaREUEtRKaDhK9g9fVSsFErt
 
 Use for linked service:
-https://www.searchapi.io/api/v1
+https://www.searchapi.io
 
-Use for Data set:
-/search?engine=google_news&q=latest_news&gl=bz&api_key=jaREUEtRKaDhK9g9fVSsFErt
+Use for Data set (Relative URL):
+/api/v1/search?engine=google_news&q=latest_news&gl=bz&api_key=jaREUEtRKaDhK9g9fVSsFErt
 
 Go to Target
 Target: data lake (adls)
 Go to ADF
+Lauunch data factory
+
+Create a linked service for base
+Manage-> New Linked Service -> REST 
+Base URL= https://www.searchapi.io/api/v1
+Authentication type: anonymous
+Create
+
+Create a linked service for ADLS
+New Linked Service -> Azure Data Lake Storage Gen2
+Select storage account
+Create
+
+Pencil Icon
+Pipeline-> New Pipeline -> move and transform -> copy data 
+
+Source:
+select source -> REST
+Linked service 
+Advanced --> (before you hit create) and input the relative URL for the dataset)
+Preview data and verify.
+
+#tip: test the url to make sure the data is flowing
+
+Sink:
+New-> ADLS Gen 2 -> JSON -> file path: raw-data/searchapi/google/latest-news/2026/02/08/search_results_20260208_143022.json
+
+To Derive:  searchapi/google/latest-news/2026/02/08
+
+1.
+Name
+Select linked service
+input raw-data in file path
+import schema = none
+Ok
+
+2.
+Go to diectory under file path -> add dynamic content ->
+@concat('searchapi/google/latest-news', formatDateTime(utcnow(),'yyyy/MM/dd'))
+
+3.
+Go to file name under file path -> add dynamic content ->
+@concat('search_results_',formatDateTime(utcnow(), 'yyyyMMdd_HHmmss'),'.json')
+
+Debug
+
+#ensure soft delete is disabled in ADLS storage account and no events are configured if faced with error: 
+ErrorCode=AdlsGen2OperationFailed,'Type=Microsoft.DataTransfer.Common.Shared.HybridDeliveryException,Message=ADLS Gen2 operation failed for: Operation returned an invalid status code 'Conflict'. Account: 'restapibmobomobo'. FileSystem: 'raw-data'. ErrorCode: 'EndpointUnsupportedAccountFeatures'. Message: 'This endpoint does not support BlobStorageEvents or SoftDelete. Please disable these account features if you would like to use this endpoint.'. RequestId: 'e03f89b2-b01f-0026-7600-f3cd84000000'. TimeStamp: 'Wed, 03 Jun 2026 02:25:53 GMT'..,Source=Microsoft.DataTransfer.ClientLibrary,''Type=Microsoft.Azure.Storage.Data.Models.ErrorSchemaException,Message=Operation returned an invalid status code 'Conflict',Source=Microsoft.DataTransfer.ClientLibrary,'
+
+click on details next to the succeeded activity status to verify the objects read were written
+Go to ADLS-> Data storage -> Container
+You should see the files written -> select to the singular file then click edit in the popup -> copy json output then go to https://jsonviewer.stack.hu/ and paste in text. Should see json breakdown in viewer tab
+
+
+Real Time Use Cases
+- News aggregation platforms
+- Market intelligence dashboards
+- Media monitoring solutions
+- Sentiment analysis pipelines
+- AI/ML model data ingestion
+
+Best Practices
+- Land raw data first (Bronze layer)
+- Use parameterized pipelines instead of hardcoing
+- Add logging & monitoring
+- Handle API throttling & retries
+
