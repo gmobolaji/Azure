@@ -1,0 +1,27 @@
+Real World Use ingestion case
+Goal: Featch latest news data from an external REST API abd store in ADLS for analytics reporting 
+
+API URL Breakdown
+Components:
+Base URL:https://www.searchapi.io
+Endpoint: /api/v1/search
+Query Parameters: engine=google&q=latest+news
+
+Search engine --> engine=google
+Search query -> q=latest+news
+api_key=[ your_key] --> Authentication
+
+https://www.searchapi.io/api/v1/search?engine=google&q=latest+news&api_key=[key]
+
+
+ADLS Folder structure (best practices)
+
+raw-data/searchapi/google/latest-news/2026/02/08/search_results_20260208_143022.json
+
+Container: raw-data
+  searchapi/
+    google/
+      (yyyy)/
+        (MM)/
+          (dd)/
+            search_results_yyyyMMdd_HHmmss.json
