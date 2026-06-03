@@ -1,0 +1,85 @@
+API- App programminh interface 
+A bridge so two softwares can chat (kinda like a waiter goes from kitchen to customer, waiter is the API
+
+API Documentation
+
+Always identify:
+
+Base URL
+Endpoint
+Parameters
+Authentication
+Rate limits
+Response schema
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+API parameters- date and data type specs
+Pagination
+POST- for posting data
+GET- pulling data back to you
+PUT – Replace/update an existing resource
+PATCH – Partially update a resource
+DELETE – Remove a resource
+
+response_status_code: 
+
+200 OK
+201 Created
+204 No Content
+400 Bad Request
+401 Unauthorized
+403 Forbidden
+404 Not Found
+429 Too Many Requests
+500 Internal Server Error
+503 Service Unavailable
+
+Rate Limits:
+APIs limit requests per minute/hour/day
+Exceeding limits often returns 429
+
+Common strategies for rate limits:
+Exponential backoff
+Retry policies
+Sleep between requests
+Request batching
+
+Parsing
+data = response.json()
+
+AUTH-- Restricts access
+Usually API Keys are insecure
+Basic Auth (usually username and password)(insecure)
+Whitelisting (only allows cetain calls and users based on IP addresses, can be added into API setup
+OAuth/OAuth 2.0-- allows 3p apps access, token extracts 
+CLient certs
+SAML 
+JSON Web Tokens
+
+Pagination
+- for APIs that retiurn large data sets
+-divides large set of data into smaller chuncks
+Methods
+
+Offset-Based
+Use parameters like offset and limit to ctrl data retrival
+ex. offset=0&limit=100, next call with offset=100
+Requires tracking of offsets and can lead to data loss if new data is added during retrieval
+
+Hypermedia
+Returns a 'nest' url in the API response,a llowing for straightforward navigation thru pages
+
+Page- Based
+Specifying page numbers and requires knowledge of total # of pages
+
+Cursor -Based
+Usually combined with hypermedia, uses cursor to keep track of the current position in the dataset and tells you what page to go next
+
+Challenges
+API Limits
+- May only return 10,0000 pages data. Need to insteract with team as documentation usually does not copver it
+
+Nested API calls
+complex apis may require multiple calls to retrieve data, complicating extractopm process
+
+API Changes
+-they change frequently,  which is why ppl use out of the box data connectors. Changes can lead to broken connections
